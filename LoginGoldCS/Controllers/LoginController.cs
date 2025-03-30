@@ -24,11 +24,11 @@ public class LoginController : ControllerBase
         var ret = await _loginUserService.GetByEmailAsync(request.Email);
 
         if (ret is null)       
-            return BadRequest(new LoginResponse(-1, "Usuário não encontrado"));
+            return BadRequest(new LoginResponse(false, "Usuário não encontrado"));
         
         if (!BCrypt.Net.BCrypt.Verify(request.Password, ret.Password))
-            return BadRequest(new LoginResponse(-2, "Senha incorreta"));
+            return BadRequest(new LoginResponse(false, "Senha incorreta"));
 
-        return Ok(new LoginResponse(1, ""));
+        return Ok(new LoginResponse(true, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZyYW5jaGVzY29AZ21haWwuY29tIiwidXNlcklkIjoiMyIsIm5hbWUiOiJGcmFuY2hlc2NvIGxlZ2FsIiwicm9sZSI6ImFkbWluIiwibmJmIjoxNzQzMzcyMTI3LCJleHAiOjE3NDM0MDA5MjcsImlhdCI6MTc0MzM3MjEyN30.RSEmTMBfVjPUXIPajMGVXN2KmLps3PkvtS8wH7QZwl0"));
     }
 }

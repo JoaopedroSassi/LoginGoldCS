@@ -2,16 +2,16 @@
 
 public class LoginResponse
 {
-    public int CodigoRetorno { get; set; }
-    public string MensagemErro { get; set; }
+    public bool Success { get; set; }
+    public object Result { get; set; }
 
     public LoginResponse()
     {
     }
 
-    public LoginResponse(int codigoRetorno, string mensagemErro)
+    public LoginResponse(bool success, object result)
     {
-        CodigoRetorno = codigoRetorno;
-        MensagemErro = mensagemErro;
+        Success = success;
+        Result = result;
     }
 }

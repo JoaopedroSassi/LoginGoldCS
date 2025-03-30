@@ -2,16 +2,16 @@
 
 public class LoginResponse
 {
-    public int? Retorno { get; set; }
-    public string? MensagemErro { get; set; }
+    public int CodigoRetorno { get; set; }
+    public string MensagemErro { get; set; }
 
     public LoginResponse()
     {
     }
 
-    public LoginResponse(int? retorno, string? mensagemErro)
+    public LoginResponse(int codigoRetorno, string mensagemErro)
     {
-        Retorno = retorno;
+        CodigoRetorno = codigoRetorno;
         MensagemErro = mensagemErro;
     }
 }

@@ -14,8 +14,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureDependencyInjections();
 
 // Connection to MongoDB
-builder.Services.Configure<MongoDBConfig>(
-    builder.Configuration.GetSection("MongoDB"));
+var urlMongoDb = Environment.GetEnvironmentVariable("CONNECTIONSTRING");
+Console.WriteLine(urlMongoDb);
+
+if (string.IsNullOrEmpty(urlMongoDb))
+{
+    throw new Exception("A variável de ambiente CONNECTIONSTRING não está definida.");
+}
+
+builder.Services.Configure<MongoDBConfig>(options =>
+{
+    options.ConnectionString = urlMongoDb;
+});
 
 builder.Services.AddSingleton<IMongoClient>(sp =>
     new MongoClient(sp.GetRequiredService<IOptions<MongoDBConfig>>().Value.ConnectionString));

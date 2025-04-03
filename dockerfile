@@ -3,11 +3,11 @@ EXPOSE 80
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY *.csproj ./LoginGoldCS
+COPY *.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
-COPY ../	 ./LoginGoldCS
+COPY ../	 ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image

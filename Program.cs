@@ -13,18 +13,23 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureDependencyInjections();
 
-// Connection to MongoDB
+//Configuring MongoDB
 var urlMongoDb = Environment.GetEnvironmentVariable("CONNECTIONSTRING");
-Console.WriteLine(urlMongoDb);
 
 if (string.IsNullOrEmpty(urlMongoDb))
 {
     throw new Exception("A variável de ambiente CONNECTIONSTRING não está definida.");
 }
 
+Console.WriteLine($"Usando Connection String do ambiente: {urlMongoDb}");
+
+var mongoUrl = new MongoUrl(urlMongoDb);
+var databaseName = mongoUrl.DatabaseName ?? throw new Exception("Nome do banco de dados não encontrado na connection string.");
+
 builder.Services.Configure<MongoDBConfig>(options =>
 {
     options.ConnectionString = urlMongoDb;
+    options.DatabaseName = databaseName;
 });
 
 builder.Services.AddSingleton<IMongoClient>(sp =>
